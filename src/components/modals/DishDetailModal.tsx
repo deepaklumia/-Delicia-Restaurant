@@ -4,16 +4,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { 
   X, 
-  Wine, 
-  Sparkles, 
   Clock, 
   Flame, 
   Plus, 
   Minus, 
   Check, 
   MapPin, 
-  ShieldAlert,
-  ChefHat
+  ChefHat,
+  Utensils
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
@@ -60,9 +58,9 @@ export const DishDetailModal: React.FC = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/30 to-transparent" />
 
-          {/* Price Tag */}
+          {/* Price Tag in INR */}
           <div className="absolute bottom-4 right-6 px-4 py-1.5 rounded-full bg-obsidian-950/90 border border-gold-400 text-gold-300 font-serif font-bold text-lg backdrop-blur-md">
-            ${dish.price}
+            ₹{dish.price}
           </div>
 
           {/* Dietary tags */}
@@ -84,9 +82,9 @@ export const DishDetailModal: React.FC = () => {
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cream-50">
               {dish.name}
             </h3>
-            {dish.frenchName && (
-              <p className="font-serif text-sm italic text-gold-400">
-                {dish.frenchName}
+            {dish.malayalamName && (
+              <p className="text-sm text-gold-400 font-medium">
+                {dish.malayalamName}
               </p>
             )}
             <p className="text-xs sm:text-sm text-cream-200/80 font-light leading-relaxed pt-2">
@@ -99,7 +97,7 @@ export const DishDetailModal: React.FC = () => {
             {dish.origin && (
               <div className="p-3 rounded-xl bg-obsidian-950/60 border border-white/5 space-y-0.5">
                 <div className="text-[10px] text-cream-300/50 uppercase tracking-widest flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-gold-400" /> Provenance
+                  <MapPin className="w-3 h-3 text-gold-400" /> Origin
                 </div>
                 <div className="text-cream-100 font-medium truncate">{dish.origin}</div>
               </div>
@@ -126,7 +124,7 @@ export const DishDetailModal: React.FC = () => {
           <div className="space-y-2">
             <div className="text-xs uppercase tracking-widest text-cream-300/60 font-semibold flex items-center gap-1.5">
               <ChefHat className="w-3.5 h-3.5 text-gold-400" />
-              Artisanal Components & Ingredients
+              Authentic Ingredients
             </div>
             <div className="flex flex-wrap gap-2">
               {dish.ingredients.map((ing, i) => (
@@ -140,13 +138,13 @@ export const DishDetailModal: React.FC = () => {
             </div>
           </div>
 
-          {/* Wine Pairing Recommendation */}
+          {/* Refreshment Pairing */}
           {dish.pairing && (
             <div className="p-4 rounded-2xl bg-burgundy-950/40 border border-gold-500/30 flex items-start gap-3">
-              <Wine className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" />
+              <Utensils className="w-5 h-5 text-gold-400 shrink-0 mt-0.5" />
               <div>
                 <div className="text-[10px] uppercase tracking-widest text-gold-400 font-semibold">
-                  Sommelier Cellar Pairing Recommendation
+                  Recommended Refreshment Pairing
                 </div>
                 <div className="font-serif text-sm text-cream-100 italic mt-0.5">
                   {dish.pairing}
@@ -191,7 +189,7 @@ export const DishDetailModal: React.FC = () => {
               ) : (
                 <>
                   <Plus className="w-4 h-4" />
-                  Add to Order (${dish.price * quantity})
+                  Add to Food Order (₹{dish.price * quantity})
                 </>
               )}
             </button>

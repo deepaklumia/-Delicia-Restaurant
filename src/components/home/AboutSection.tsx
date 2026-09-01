@@ -2,15 +2,15 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Award, Compass, HeartHandshake, Sparkles, CheckCircle2, Flame } from 'lucide-react';
+import { Award, Compass, HeartHandshake, Sparkles, CheckCircle2, Flame, ShieldCheck } from 'lucide-react';
 import { AWARDS } from '@/data/restaurantData';
 
 export const AboutSection: React.FC = () => {
   const milestones = [
-    { number: '28', label: 'Years of Culinary Mastery', sub: 'Founded in Paris, 1996' },
-    { number: '3', label: 'Michelin Stars', sub: 'Consecutive Highest Honors' },
-    { number: '1,250+', label: 'Exclusive Galas Catered', sub: 'Global Royalty & Fortune 500' },
-    { number: '99.8%', label: 'Guest Perfection Score', sub: 'Over 140,000 Diners' },
+    { number: '100%', label: 'Certified Halal & Fresh', sub: 'Zero preservatives or frozen meat' },
+    { number: '2', label: 'Flagship Locations', sub: 'Malappuram & Valluvambram' },
+    { number: '850+', label: 'Weddings & Banquets Catered', sub: 'Across Kerala & GCC families' },
+    { number: '4.9★', label: 'Google Guest Score', sub: 'Over 12,000 Verified Diners' },
   ];
 
   return (
@@ -22,21 +22,21 @@ export const AboutSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
-            The Delicia Legacy
+            The Delicia Story
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-light text-cream-50 leading-tight">
-            A Symphony of <span className="font-normal italic text-gold-gradient">Passion</span>, Precision & Provenance
+            The Royal Heritage of <span className="font-normal italic text-gold-gradient">Malabar & Indian</span> Flavors
           </h2>
-          <p className="text-sm sm:text-base text-cream-200/70 font-light leading-relaxed">
-            Founded with an uncompromising quest for culinary perfection, Delicia marries French classical haute cuisine technique with Japanese reverence for seasonal micro-seasons.
+          <p className="text-sm sm:text-base text-cream-200/75 font-light leading-relaxed">
+            Delicia was born to celebrate the authentic culinary traditions of Malabar alongside the royal splendor of Awadhi and Mughal tandoori dining.
           </p>
         </div>
 
         {/* Story Grid with Chef & Dining Room imagery */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
-          {/* Left: Chef Portrait & Plaque */}
+          {/* Left: Master Chef Portrait & Plaque */}
           <div className="lg:col-span-6 relative">
             <div className="relative mx-auto max-w-lg">
               {/* Gold frame offset */}
@@ -45,7 +45,7 @@ export const AboutSection: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gold-500/40">
                 <Image
                   src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=85"
-                  alt="Executive Chef Antoine Delicia"
+                  alt="Executive Master Chef at Delicia"
                   width={600}
                   height={750}
                   className="object-cover w-full h-[520px] filter contrast-[1.05]"
@@ -56,9 +56,9 @@ export const AboutSection: React.FC = () => {
                 <div className="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-obsidian-950/90 border border-gold-500/40 backdrop-blur-xl">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-serif text-lg font-bold text-cream-50">Chef Antoine Delicia</h4>
+                      <h4 className="font-serif text-lg font-bold text-cream-50">Ustad Chef Moideen & Team</h4>
                       <p className="text-xs text-gold-400 uppercase tracking-widest font-medium">
-                        Culinary Director & 3-Star Michelin Laureate
+                        Culinary Director & Master of Malabar Dum Heritage
                       </p>
                     </div>
                     <div className="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center">
@@ -66,7 +66,7 @@ export const AboutSection: React.FC = () => {
                     </div>
                   </div>
                   <p className="mt-3 text-xs italic text-cream-200/80 leading-relaxed border-t border-white/10 pt-3">
-                    &ldquo;Every plate is an intimate conversation between the earth, the sea, and the human soul. We do not just serve food; we craft memories that linger for a lifetime.&rdquo;
+                    &ldquo;Real Malabar and Indian gastronomy is built on patience: hand-ground Wayanad spices, slow coal-simmered dum handis, and the pure joy of family gatherings.&rdquo;
                   </p>
                 </div>
               </div>
@@ -82,10 +82,10 @@ export const AboutSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg font-bold text-cream-100 mb-1">
-                    Direct Micro-Terroir Sourcing
+                    Authentic Malabar Spice & Ghee Sourcing
                   </h3>
                   <p className="text-xs text-cream-200/75 leading-relaxed">
-                    We harvest directly from family-run biodynamic estates in Miyazaki, Brittany, Alba, and Provence. Every ingredient arrives within 24 hours of harvest or harvest-catch.
+                    We source Jeerakasala (Kaima) rice directly from selected Wayanad paddy farmers, freshly pressed coconut oil, and small-batch cultured ghee for authentic aroma.
                   </p>
                 </div>
               </div>
@@ -96,10 +96,10 @@ export const AboutSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg font-bold text-cream-100 mb-1">
-                    Unmatched Sommelier Cellar
+                    Charcoal Clay Tandoor & Banana Leaf Roasts
                   </h3>
                   <p className="text-xs text-cream-200/75 leading-relaxed">
-                    Over 3,400 reference labels from centuries-old Bordeaux châteaux, Burgundy Premier Crus, and artisanal biodynamic estates, managed by Grand Sommelier Antoine de la Rivière.
+                    Our live coal-fired tandoor produces succulent kebabs, crisp buttery naans, and fiery Kanthari Al Faham, while fresh sea catch is grilled in banana leaf wraps.
                   </p>
                 </div>
               </div>
@@ -110,10 +110,10 @@ export const AboutSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg font-bold text-cream-100 mb-1">
-                    Bespoke Hospitality & Private Vaults
+                    Family AC Cabins & Royal Wedding Catering
                   </h3>
                   <p className="text-xs text-cream-200/75 leading-relaxed">
-                    Personalized dining itineraries, discreet VIP suites, tailored tasting journeys for celebratory milestones, and world-class luxury catering operations globally.
+                    Private air-conditioned family cabins in Malappuram and Valluvambram, alongside large-scale royal catering capabilities for up to 2,500 guests.
                   </p>
                 </div>
               </div>
@@ -122,24 +122,24 @@ export const AboutSection: React.FC = () => {
             {/* Accreditations checklist */}
             <div className="p-6 rounded-2xl bg-gradient-to-r from-obsidian-950 to-obsidian-900 border border-gold-500/20">
               <div className="text-xs uppercase tracking-widest text-gold-400 font-semibold mb-3">
-                Our Gastronomic Commitments
+                Our Gastronomic Guarantees
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-cream-200/90">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-400" />
-                  100% Certified Sustainable Seafood
+                  100% Certified Halal Meat
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-400" />
-                  Zero Single-Use Waste Operations
+                  No Artificial Food Coloring
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-400" />
-                  Himalayan Salt Dry-Aging On-Premise
+                  Fresh Daily Arabian Sea Catch
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-400" />
-                  Handcrafted Baccarat Table Settings
+                  Dedicated AC Family Cabins
                 </div>
               </div>
             </div>
@@ -166,10 +166,10 @@ export const AboutSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Awards Badges Carousel / Bar */}
+        {/* Awards Badges Bar */}
         <div className="mt-16 pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
           {AWARDS.map((award, i) => (
-            <div key={i} className="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
+            <div key={i} className="flex items-center gap-3 opacity-85 hover:opacity-100 transition-opacity">
               <span className="text-2xl">{award.icon}</span>
               <div>
                 <div className="text-xs font-serif font-bold text-cream-100">{award.title}</div>

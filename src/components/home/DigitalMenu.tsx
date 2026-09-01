@@ -5,13 +5,9 @@ import Image from 'next/image';
 import { 
   Search, 
   Filter, 
-  Sparkles, 
   Plus, 
-  Wine, 
   Check, 
   Info,
-  Flame,
-  Leaf,
   Utensils
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -26,23 +22,23 @@ export const DigitalMenu: React.FC = () => {
   const [addedDishId, setAddedDishId] = useState<string | null>(null);
 
   const categories = [
-    { id: 'all', label: 'All Creations' },
-    { id: 'starters', label: 'Caviar & Starters' },
-    { id: 'steaks', label: 'Artisanal Steaks' },
-    { id: 'seafood', label: 'Ocean Delicacies' },
-    { id: 'pastas', label: 'Handcrafted Pastas' },
-    { id: 'plant', label: 'Plant-Based Elegance' },
-    { id: 'desserts', label: 'Grand Desserts' },
-    { id: 'cocktails', label: 'Reserve Cocktails' },
+    { id: 'all', label: 'All Items' },
+    { id: 'biryani', label: 'Dum Biryani & Rice' },
+    { id: 'tandoori', label: 'Tandoor & Charcoal' },
+    { id: 'seafood', label: 'Malabar Seafood' },
+    { id: 'curries', label: 'Royal Curries' },
+    { id: 'desserts', label: 'Desserts & Payasam' },
+    { id: 'beverages', label: 'Kulukki & Sharbath' },
   ];
 
-  const dietaryOptions = ['all', 'Gluten-Free', 'Vegan', 'Vegetarian', 'Halal', 'Chef Selection'];
+  const dietaryOptions = ['all', '100% Halal', 'Vegetarian', 'Chef Special', 'Jain Friendly', 'Kids Friendly'];
 
   const filteredDishes = useMemo(() => {
     return SIGNATURE_DISHES.filter((dish) => {
       const matchesCategory = selectedCategory === 'all' || dish.category === selectedCategory;
       const matchesSearch =
         dish.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (dish.malayalamName && dish.malayalamName.toLowerCase().includes(searchQuery.toLowerCase())) ||
         dish.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         dish.ingredients.some((ing) => ing.toLowerCase().includes(searchQuery.toLowerCase()));
       const matchesDietary =
@@ -66,13 +62,13 @@ export const DigitalMenu: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
             <Utensils className="w-3.5 h-3.5" />
-            Gastronomic Repertoire
+            Culinary Repertoire
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-light text-cream-50 leading-tight">
             The Interactive <span className="font-normal italic text-gold-gradient">Digital Menu</span>
           </h2>
-          <p className="text-sm sm:text-base text-cream-200/70 font-light leading-relaxed">
-            Filter by dietary requirements, search rare culinary components, or explore wine cellar pairings for each masterwork.
+          <p className="text-sm sm:text-base text-cream-200/75 font-light leading-relaxed">
+            Explore authentic Malabar Biryanis, charcoal Tandoor platters, and royal desserts. Filter by dietary choices or search for your favorite dish.
           </p>
         </div>
 
@@ -86,7 +82,7 @@ export const DigitalMenu: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by ingredient, dish name, or flavor note (e.g. Wagyu, Truffle, Caviar)..."
+                placeholder="Search Biryani, Al Faham, Neymeen, Payasam, Paneer..."
                 className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-obsidian-900/90 border border-gold-500/25 text-xs text-cream-100 placeholder-cream-300/40 focus:outline-none focus:border-gold-400 transition-all backdrop-blur-xl"
               />
               {searchQuery && (
@@ -102,19 +98,19 @@ export const DigitalMenu: React.FC = () => {
             {/* Dietary Tags Pill Scroll */}
             <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-none">
               <span className="text-[11px] text-cream-300/50 uppercase tracking-widest flex items-center gap-1 shrink-0 pl-1">
-                <Filter className="w-3 h-3 text-gold-400" /> Diet:
+                <Filter className="w-3 h-3 text-gold-400" /> Filter:
               </span>
               {dietaryOptions.map((diet) => (
                 <button
                   key={diet}
                   onClick={() => setDietaryFilter(diet)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide shrink-0 transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide shrink-0 transition-all ${
                     dietaryFilter === diet
                       ? 'bg-gold-500 text-obsidian-950 font-bold shadow-md'
                       : 'bg-obsidian-800/80 text-cream-200 hover:text-gold-300 border border-white/5'
                   }`}
                 >
-                  {diet === 'all' ? 'All Diets' : diet}
+                  {diet === 'all' ? 'All Items' : diet}
                 </button>
               ))}
             </div>
@@ -140,7 +136,7 @@ export const DigitalMenu: React.FC = () => {
 
         {/* Results Counter */}
         <div className="flex items-center justify-between text-xs text-cream-300/60 mb-8">
-          <span>Showing {filteredDishes.length} Haute Cuisine Creations</span>
+          <span>Showing {filteredDishes.length} Delicia Specialties</span>
           {searchQuery && (
             <span>Results matching &ldquo;{searchQuery}&rdquo;</span>
           )}
@@ -152,7 +148,7 @@ export const DigitalMenu: React.FC = () => {
             <Utensils className="w-10 h-10 text-gold-400 mx-auto opacity-60" />
             <h3 className="font-serif text-xl text-cream-100">No dishes match your specific search</h3>
             <p className="text-xs text-cream-300/60">
-              Try adjusting your dietary filter or search terms.
+              Try searching with another keyword or resetting filters.
             </p>
             <button
               onClick={() => {
@@ -183,17 +179,10 @@ export const DigitalMenu: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent" />
 
-                  {/* Price Tag */}
-                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-obsidian-950/90 border border-gold-500/40 text-gold-300 font-serif font-bold text-xs backdrop-blur-md">
-                    ${dish.price}
+                  {/* Price Tag in INR */}
+                  <div className="absolute top-3 right-3 px-3.5 py-1 rounded-full bg-obsidian-950/90 border border-gold-500/50 text-gold-300 font-serif font-bold text-sm backdrop-blur-md">
+                    ₹{dish.price}
                   </div>
-
-                  {/* Calories Pill */}
-                  {dish.calories && (
-                    <div className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full bg-obsidian-950/80 text-[10px] text-cream-300/80 backdrop-blur-md">
-                      {dish.calories} kcal
-                    </div>
-                  )}
 
                   {dish.origin && (
                     <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-obsidian-950/80 border border-white/10 text-[9px] uppercase tracking-wider text-cream-200/80 backdrop-blur-md">
@@ -221,9 +210,9 @@ export const DigitalMenu: React.FC = () => {
                       {dish.name}
                     </h3>
 
-                    {dish.frenchName && (
-                      <p className="text-xs italic text-gold-400/80 font-serif line-clamp-1 mt-0.5">
-                        {dish.frenchName}
+                    {dish.malayalamName && (
+                      <p className="text-xs text-gold-400/90 font-medium line-clamp-1 mt-0.5">
+                        {dish.malayalamName}
                       </p>
                     )}
 
@@ -231,11 +220,11 @@ export const DigitalMenu: React.FC = () => {
                       {dish.description}
                     </p>
 
-                    {/* Wine Pairing Snippet */}
+                    {/* Refreshment Pairing Snippet */}
                     {dish.pairing && (
                       <div className="mt-3 p-2 rounded-xl bg-obsidian-900/80 border border-white/5 text-[10px] text-cream-200/80 flex items-center gap-1.5">
-                        <Wine className="w-3 h-3 text-gold-400 shrink-0" />
-                        <span className="truncate italic">{dish.pairing}</span>
+                        <Utensils className="w-3 h-3 text-gold-400 shrink-0" />
+                        <span className="truncate italic">Pair with: {dish.pairing}</span>
                       </div>
                     )}
                   </div>
@@ -266,7 +255,7 @@ export const DigitalMenu: React.FC = () => {
                     <button
                       onClick={() => setSelectedDishModal(dish)}
                       className="p-2.5 rounded-xl bg-obsidian-800/80 hover:bg-obsidian-700 border border-white/10 text-cream-200 hover:text-gold-300 transition-colors"
-                      title="Inspect Ingredients & Nutrition"
+                      title="Inspect Ingredients"
                     >
                       <Info className="w-4 h-4" />
                     </button>

@@ -1,76 +1,66 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Wine, Sparkles, Award, Compass, Check, ArrowRight } from 'lucide-react';
+import { Sparkles, Award, Coffee, Utensils, Check } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
-interface WineRecommendation {
+interface BeverageRecommendation {
   name: string;
-  vintage: string;
-  appellation: string;
-  region: string;
+  malayalamName: string;
+  category: string;
   notes: string;
-  servingTemp: string;
-  bottlePrice: number;
-  glassPrice?: number;
+  servingStyle: string;
+  price: number;
   bestPairedWith: string;
 }
 
-const WINE_RECOMMENDATIONS: Record<string, WineRecommendation> = {
-  wagyu: {
-    name: 'Château Margaux 1er Grand Cru Classé',
-    vintage: '2015',
-    appellation: 'Margaux AOC',
-    region: 'Bordeaux, France',
-    notes: 'Complex aromas of blackcurrant, violets, smoked cedar, and graphite. Velvety tannins harmonize with the ultra-rich marbling of A5 Wagyu.',
-    servingTemp: '17°C (63°F)',
-    bottlePrice: 1850,
-    glassPrice: 320,
-    bestPairedWith: 'Miyazaki A5 Wagyu & Dry-Aged Tomahawk'
+const BEVERAGE_RECOMMENDATIONS: Record<string, BeverageRecommendation> = {
+  biryani: {
+    name: 'Kashmiri Royal Saffron Qahwa & Sulaimani',
+    malayalamName: 'കാശ്മീരി സുലൈമാനി & കുങ്കുമപ്പൂ ഖഹ്വ',
+    category: 'Hot Herbal Digestif',
+    notes: 'Brewed with wild cardamom pods, crushed cinnamon bark, pure Kashmiri saffron strands, and slivered almonds. The quintessential palate cleanser after a rich Malabar Dum Biryani.',
+    servingStyle: 'Served steaming hot in hand-carved brass samovar cups',
+    price: 90,
+    bestPairedWith: 'Royal Malabar Kaima Mutton Dum Biryani'
+  },
+  alfaham: {
+    name: 'Signature Blue Ocean Saffron & Mint Kulukki',
+    malayalamName: 'ഡെലിഷ്യ സ്പെഷ്യൽ കുലുക്കി സർബത്ത്',
+    category: 'Handcrafted Shaken Mocktail',
+    notes: 'Zesty lemon juice, tender coconut water, basil seeds (sabja), green chili slit for a gentle kick, shaken vigorously over crushed ice and topped with saffron mist.',
+    servingStyle: 'Chilled glass jar with mint bouquet & chili garnish',
+    price: 140,
+    bestPairedWith: 'Charcoal Kanthari Al Faham & Tandoori Platters'
   },
   seafood: {
-    name: 'Domaine Leflaive Puligny-Montrachet 1er Cru Les Pucelles',
-    vintage: '2018',
-    appellation: 'Puligny-Montrachet AOC',
-    region: 'Côte de Beaune, Burgundy, France',
-    notes: 'Sublime minerality, white flowers, lemon curd, toasted hazelnuts, and creamy salinity that cuts through buttery blue lobster and king crab.',
-    servingTemp: '12°C (54°F)',
-    bottlePrice: 980,
-    glassPrice: 175,
-    bestPairedWith: 'Brittany Blue Lobster & Hokkaido Scallops'
+    name: 'Fresh Tender Coconut (Elaneer) Mint Cooler',
+    malayalamName: 'ഫ്രഷ് ഇളനീർ മിന്റ് കൂളർ',
+    category: 'Natural Hydration',
+    notes: 'Pure water harvested directly from local tender coconuts, blended with fresh garden mint leaves and a dash of rock salt to balance spicy seafood roasts.',
+    servingStyle: 'Served inside a trimmed fresh coconut shell',
+    price: 120,
+    bestPairedWith: 'Beypore Tiger Prawns & Neymeen Pollichathu'
   },
-  truffle: {
-    name: 'Gaja Barbaresco DOCG Sori San Lorenzo',
-    vintage: '2016',
-    appellation: 'Barbaresco DOCG',
-    region: 'Piedmont, Italy',
-    notes: 'Intense rose petals, tar, wild cherries, damp forest floor, and structured acidity that magnifies the pungent earthy aroma of fresh Alba white truffles.',
-    servingTemp: '16°C (61°F)',
-    bottlePrice: 850,
-    glassPrice: 155,
-    bestPairedWith: 'Alba White Truffle Tajarin & Duck Agnolotti'
-  },
-  caviar: {
-    name: 'Dom Pérignon Vintage Brut Champagne P2',
-    vintage: '2004',
-    appellation: 'Champagne AOC',
-    region: 'Épernay, Champagne, France',
-    notes: 'Plénitude 2: dynamic freshness, brioche, candied citrus peel, toasted almond, and microscopic effervescence that balances the briny caviar pearls.',
-    servingTemp: '9°C (48°F)',
-    bottlePrice: 1150,
-    glassPrice: 195,
-    bestPairedWith: 'Imperial Royal Ossetra Caviar Service'
+  dessert: {
+    name: 'Royal Pistachio Rose Petal Badam Milk',
+    malayalamName: 'റോയൽ പിസ്ത റോസ് ബദാം മിൽക്ക്',
+    category: 'Rich Milk Nectar',
+    notes: 'Slow-simmered rich creamy milk infused with roasted Iranian pistachios, crushed almonds, organic rose water, and pure honey.',
+    servingStyle: 'Chilled clay matka with dried rose petals and crushed nuts',
+    price: 160,
+    bestPairedWith: 'Royal 24K Gold Elaneer Payasam & Shahi Tukda'
   }
 };
 
 export const WineCellarSection: React.FC = () => {
   const { setIsReservationOpen } = useCart();
-  const [selectedPairing, setSelectedPairing] = useState<'wagyu' | 'seafood' | 'truffle' | 'caviar'>('wagyu');
+  const [selectedPairing, setSelectedPairing] = useState<'biryani' | 'alfaham' | 'seafood' | 'dessert'>('biryani');
 
-  const currentWine = WINE_RECOMMENDATIONS[selectedPairing];
+  const currentBev = BEVERAGE_RECOMMENDATIONS[selectedPairing];
 
   return (
-    <section id="wine-cellar" className="relative py-28 bg-obsidian-950 overflow-hidden">
+    <section id="beverages" className="relative py-28 bg-obsidian-950 overflow-hidden">
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-burgundy-900/25 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-96 h-96 bg-gold-500/5 rounded-full blur-[140px] pointer-events-none" />
@@ -79,30 +69,30 @@ export const WineCellarSection: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
-            <Wine className="w-3.5 h-3.5" />
-            Grand Cru Wine Spectator Program
+            <Coffee className="w-3.5 h-3.5" />
+            The Royal Beverage & Qahwa Lounge
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-light text-cream-50 leading-tight">
-            The Subterranean <span className="font-normal italic text-gold-gradient">Wine Vault</span>
+            Artisanal <span className="font-normal italic text-gold-gradient">Mocktails & Hot Qahwas</span>
           </h2>
           <p className="text-sm sm:text-base text-cream-200/75 font-light leading-relaxed">
-            Housing over 3,400 reference bottles under precise climatic control. Use our interactive Sommelier Assistant to discover your ultimate pairing.
+            Every grand feast at Delicia is paired with handcrafted refreshers — from traditional Malabar Sulaimani to vibrant Kulukki mocktails.
           </p>
         </div>
 
-        {/* Interactive Sommelier Pairing Experience */}
+        {/* Interactive Beverage Pairing Experience */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left: Pairing Selector Buttons */}
           <div className="lg:col-span-5 space-y-4">
             <div className="text-xs uppercase tracking-widest text-cream-300/60 font-semibold mb-2">
-              Select Your Dining Palate:
+              Select Your Meal Pairing:
             </div>
 
             {[
-              { id: 'wagyu', label: 'Prime Wagyu & Dry-Aged Beef', sub: 'Bold, structured Premier Grand Cru Reds', icon: '🥩' },
-              { id: 'seafood', label: 'Blue Lobster & Shellfish', sub: 'Mineral, rich White Burgundy & Chablis', icon: '🦞' },
-              { id: 'truffle', label: 'Alba White Truffles & Pasta', sub: 'Aromatic Piedmontese Barolo & Barbaresco', icon: '🍄' },
-              { id: 'caviar', label: 'Royal Ossetra Caviar & Raw Bar', sub: 'Vintage Champagne Plénitude & Blanc de Blancs', icon: '🥂' },
+              { id: 'biryani', label: 'With Malabar Dum Biryani', sub: 'Kashmiri Saffron Qahwa & Sulaimani', icon: '☕' },
+              { id: 'alfaham', label: 'With Charcoal Al Faham', sub: 'Handcrafted Shaken Saffron Kulukki', icon: '🍹' },
+              { id: 'seafood', label: 'With Seafood Pollichathu', sub: 'Pure Tender Coconut Mint Cooler', icon: '🥥' },
+              { id: 'dessert', label: 'With Royal Sweet Payasam', sub: 'Pistachio Rose Petal Badam Nectar', icon: '🥛' },
             ].map((option) => (
               <button
                 key={option.id}
@@ -132,76 +122,76 @@ export const WineCellarSection: React.FC = () => {
               </button>
             ))}
 
-            {/* Sommelier Consultation Note */}
+            {/* Special Lounge note */}
             <div className="p-4 rounded-xl bg-obsidian-900 border border-white/10 text-xs text-cream-200/80 flex items-center gap-3">
               <Sparkles className="w-4 h-4 text-gold-400 shrink-0" />
               <span>
-                Need rare collector vintages? Master Sommelier Antoine is available for private cellar consultations.
+                Enjoy complimentary traditional hot Sulaimani tea with every dine-in Biryani order at both branches.
               </span>
             </div>
           </div>
 
-          {/* Right: Sommelier Bottle Reveal Card */}
+          {/* Right: Beverage Reveal Card */}
           <div className="lg:col-span-7 rounded-3xl glass-panel-gold p-8 sm:p-10 border border-gold-500/40 shadow-2xl relative">
             <div className="space-y-6">
-              {/* Header with Appellation and Vintage */}
+              {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
                 <div>
                   <div className="flex items-center gap-2 text-gold-400 text-xs uppercase tracking-widest font-semibold mb-1">
                     <Award className="w-4 h-4" />
-                    Sommelier Selection of the House
+                    Signature Beverage Selection
                   </div>
                   <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cream-50">
-                    {currentWine.name}
+                    {currentBev.name}
                   </h3>
-                  <div className="text-xs text-gold-300 font-serif mt-1">
-                    Vintage {currentWine.vintage} • {currentWine.appellation} ({currentWine.region})
+                  <div className="text-xs text-gold-300 font-medium mt-1">
+                    {currentBev.malayalamName} • {currentBev.category}
                   </div>
                 </div>
 
                 <div className="sm:text-right">
                   <div className="font-serif text-3xl font-bold text-gold-gradient">
-                    ${currentWine.bottlePrice}
+                    ₹{currentBev.price}
                   </div>
                   <div className="text-[11px] text-cream-300/60 font-light">
-                    750ml Bottle {currentWine.glassPrice ? `• $${currentWine.glassPrice}/glass` : ''}
+                    Per Glass / Clay Cup
                   </div>
                 </div>
               </div>
 
-              {/* Tasting Notes */}
+              {/* Description */}
               <div className="space-y-2">
                 <div className="text-xs uppercase tracking-widest text-cream-300/50 font-semibold">
-                  Tasting & Terroir Profile
+                  Ingredients & Flavor Profile
                 </div>
                 <p className="text-xs sm:text-sm text-cream-100 font-light leading-relaxed italic bg-obsidian-950/70 p-4 rounded-xl border border-white/5">
-                  &ldquo;{currentWine.notes}&rdquo;
+                  &ldquo;{currentBev.notes}&rdquo;
                 </p>
               </div>
 
-              {/* Pairing Metrics */}
+              {/* Metrics */}
               <div className="grid grid-cols-2 gap-4 text-xs">
                 <div className="p-4 rounded-xl bg-obsidian-950/50 border border-white/5 space-y-1">
-                  <div className="text-cream-300/50 uppercase tracking-widest text-[10px]">Optimal Serving Temp</div>
-                  <div className="font-serif text-base text-gold-300 font-semibold">{currentWine.servingTemp}</div>
+                  <div className="text-cream-300/50 uppercase tracking-widest text-[10px]">Presentation Style</div>
+                  <div className="font-serif text-xs text-gold-300 font-semibold">{currentBev.servingStyle}</div>
                 </div>
                 <div className="p-4 rounded-xl bg-obsidian-950/50 border border-white/5 space-y-1">
-                  <div className="text-cream-300/50 uppercase tracking-widest text-[10px]">Harmonious Pairing</div>
-                  <div className="font-serif text-xs text-cream-100 font-medium truncate">{currentWine.bestPairedWith}</div>
+                  <div className="text-cream-300/50 uppercase tracking-widest text-[10px]">Perfect Pairing</div>
+                  <div className="font-serif text-xs text-cream-100 font-medium truncate">{currentBev.bestPairedWith}</div>
                 </div>
               </div>
 
               {/* Card CTA */}
               <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-xs text-cream-300/60">
-                  Stored at 13°C / 70% humidity in our underground vault.
+                  Prepared fresh to order in our live mocktail and tea bar.
                 </div>
                 <button
                   onClick={() => setIsReservationOpen(true)}
                   className="w-full sm:w-auto gold-btn px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
                 >
-                  <Wine className="w-4 h-4" />
-                  Reserve With Wine Pairing
+                  <Utensils className="w-4 h-4" />
+                  Book Table & Refreshments
                 </button>
               </div>
             </div>

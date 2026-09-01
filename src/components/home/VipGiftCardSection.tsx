@@ -1,17 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Gift, Sparkles, CreditCard, Send, Check, ShieldCheck } from 'lucide-react';
+import { Gift, Sparkles, CreditCard, Check } from 'lucide-react';
 
 export const VipGiftCardSection: React.FC = () => {
-  const [amount, setAmount] = useState<number>(500);
+  const [amount, setAmount] = useState<number>(2500);
   const [customAmount, setCustomAmount] = useState('');
-  const [recipientName, setRecipientName] = useState('Lady Eleonora Vance');
-  const [senderName, setSenderName] = useState('Alexander Sterling');
-  const [giftMessage, setGiftMessage] = useState('For an unforgettable culinary evening at Delicia.');
+  const [recipientName, setRecipientName] = useState('Mohammed Faisal & Family');
+  const [senderName, setSenderName] = useState('Abdul Rahman');
+  const [giftMessage, setGiftMessage] = useState('Enjoy a grand royal feast at Delicia Restaurant.');
   const [cardPurchased, setCardPurchased] = useState(false);
 
-  const presetAmounts = [250, 500, 1000, 2500];
+  const presetAmounts = [1000, 2500, 5000, 10000];
 
   const handleSelectAmount = (val: number) => {
     setAmount(val);
@@ -42,13 +42,13 @@ export const VipGiftCardSection: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
             <Gift className="w-3.5 h-3.5" />
-            The Gift of Grand Gastronomy
+            The Gift of Royal Gastronomy
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-light text-cream-50 leading-tight">
-            Digital 24K Gold <span className="font-normal italic text-gold-gradient">Gift Cards</span>
+            Delicia Royal <span className="font-normal italic text-gold-gradient">Dining Gift Cards</span>
           </h2>
           <p className="text-sm sm:text-base text-cream-200/75 font-light leading-relaxed">
-            Bestow an extraordinary dining experience upon cherished family, esteemed clients, or beloved partners. Delivered instantly via encrypted digital pass or luxury embossed physical keepsake.
+            Surprise your beloved family, friends, or corporate colleagues with an authentic feast. Valid for dine-in, AC family cabins, and takeaway across both Malappuram & Valluvambram branches.
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export const VipGiftCardSection: React.FC = () => {
                     </span>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-obsidian-950/15 border border-obsidian-950/30">
-                    VIP Grand Privilege
+                    Royal Dining Pass
                   </span>
                 </div>
 
@@ -91,10 +91,10 @@ export const VipGiftCardSection: React.FC = () => {
                 <div className="flex items-end justify-between relative z-10 border-t border-obsidian-950/20 pt-4">
                   <div>
                     <div className="text-[9px] uppercase tracking-widest opacity-70">From: {senderName || 'Anonymous'}</div>
-                    <div className="text-[10px] tracking-widest font-mono font-medium">PASS • • • • 9842</div>
+                    <div className="text-[10px] tracking-widest font-mono font-medium">CARD • • • • 7821</div>
                   </div>
                   <div className="font-serif text-3xl font-bold">
-                    ${amount.toLocaleString()} <span className="text-xs font-sans font-normal">USD</span>
+                    ₹{amount.toLocaleString('en-IN')} <span className="text-xs font-sans font-normal">INR</span>
                   </div>
                 </div>
               </div>
@@ -105,10 +105,10 @@ export const VipGiftCardSection: React.FC = () => {
                   <Sparkles className="w-3.5 h-3.5 text-gold-400" /> Never Expires
                 </span>
                 <span className="flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-gold-400" /> Valid at all 4 Global Flagships
+                  <Sparkles className="w-3.5 h-3.5 text-gold-400" /> Valid at Malappuram & Valluvambram
                 </span>
                 <span className="flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-gold-400" /> Priority Table Booking
+                  <Sparkles className="w-3.5 h-3.5 text-gold-400" /> WhatsApp Instant Pass
                 </span>
               </div>
             </div>
@@ -120,7 +120,7 @@ export const VipGiftCardSection: React.FC = () => {
               Customize Your Digital Gift Card
             </h3>
             <p className="text-xs text-cream-200/70 mb-6">
-              Personalize with the recipient&apos;s name and your private congratulatory message.
+              Personalize with the recipient&apos;s name and your warm family greeting.
             </p>
 
             {cardPurchased ? (
@@ -129,10 +129,10 @@ export const VipGiftCardSection: React.FC = () => {
                   <Check className="w-6 h-6" />
                 </div>
                 <h4 className="font-serif text-xl text-emerald-300 font-bold">
-                  Delicia VIP Gift Pass Issued
+                  Gift Voucher Generated
                 </h4>
                 <p className="text-xs text-cream-100">
-                  Your ${amount.toLocaleString()} VIP dining certificate for {recipientName} has been created. A digital luxury voucher and Apple Wallet pass will be dispatched to your email.
+                  Your ₹{amount.toLocaleString('en-IN')} Delicia dining voucher for {recipientName} has been created. A digital voucher will be sent to your WhatsApp and email.
                 </p>
               </div>
             ) : (
@@ -140,7 +140,7 @@ export const VipGiftCardSection: React.FC = () => {
                 {/* Denominations */}
                 <div>
                   <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-2 font-semibold">
-                    Select Gift Amount
+                    Select Gift Amount (₹ INR)
                   </label>
                   <div className="grid grid-cols-4 gap-2.5">
                     {presetAmounts.map((preset) => (
@@ -154,7 +154,7 @@ export const VipGiftCardSection: React.FC = () => {
                             : 'bg-obsidian-800 border border-white/10 text-cream-200 hover:border-gold-500/30'
                         }`}
                       >
-                        ${preset}
+                        ₹{preset}
                       </button>
                     ))}
                   </div>
@@ -163,7 +163,7 @@ export const VipGiftCardSection: React.FC = () => {
                       type="number"
                       value={customAmount}
                       onChange={(e) => handleCustomAmountChange(e.target.value)}
-                      placeholder="Or enter custom amount in USD (e.g. 1500)..."
+                      placeholder="Or enter custom amount in ₹ (e.g. 7500)..."
                       className="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 placeholder-cream-300/30 focus:outline-none"
                     />
                   </div>
@@ -214,7 +214,7 @@ export const VipGiftCardSection: React.FC = () => {
                   className="w-full gold-btn py-4 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-xl mt-2"
                 >
                   <CreditCard className="w-4 h-4" />
-                  Acquire Gift Certificate (${amount.toLocaleString()})
+                  Generate Gift Card (₹{amount.toLocaleString('en-IN')})
                 </button>
               </form>
             )}

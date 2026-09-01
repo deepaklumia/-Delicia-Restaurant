@@ -13,33 +13,33 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Delicia | 3-Star Michelin Haute Gastronomie & Fine Dining",
+  title: "Delicia Restaurant | Malappuram & Valluvambram | Royal Malabar & Indian Fine Dining",
   description:
-    "Experience the pinnacle of culinary artistry at Delicia Restaurant. Featuring A5 Miyazaki Wagyu, Tsar Imperial Caviar, and rare Grand Cru wine pairings by Master Chef Antoine Delicia.",
+    "Delicia Restaurant in Malappuram & Valluvambram, Kerala. Savor authentic Malabar Dum Biryani, Tandoori Charcoal platters, fresh seafood, and royal wedding catering. Call: Malappuram: 8593000014, 15 | Valluvambram: 8593000024, 34.",
   keywords: [
-    "Delicia Restaurant",
-    "Michelin Star Fine Dining",
-    "Haute Cuisine",
-    "Tasting Menu Degustation",
-    "Luxury Catering",
-    "Sommelier Wine Cellar",
-    "Private Dining Vault",
+    "Delicia Restaurant Malappuram",
+    "Delicia Valluvambram",
+    "Best Biryani in Malappuram",
+    "Halal Family Restaurant Kerala",
+    "Malabar Wedding Catering",
+    "Tandoori Restaurant Valluvambram",
+    "Kanthari Al Faham Malappuram",
   ],
-  authors: [{ name: "Delicia Restaurant Group" }],
+  authors: [{ name: "Delicia Restaurant Kerala" }],
   openGraph: {
-    title: "Delicia | 3-Star Michelin Haute Gastronomie",
-    description: "An extraordinary fine dining journey crafted by Master Chef Antoine Delicia.",
-    url: "https://delicia-dining.com",
+    title: "Delicia Restaurant | Royal Malabar & Indian Gastronomy",
+    description: "Authentic Dum Biryani, Tandoor & Wedding Catering in Malappuram & Valluvambram, Kerala.",
+    url: "https://deliciarestaurant.in",
     siteName: "Delicia Restaurant",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85",
+        url: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1200&q=85",
         width: 1200,
         height: 630,
-        alt: "Delicia Restaurant Signature Cuisine",
+        alt: "Delicia Restaurant Malabar Biryani & Tandoor",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
 };

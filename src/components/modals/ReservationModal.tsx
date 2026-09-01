@@ -3,18 +3,13 @@
 import React, { useState } from 'react';
 import { 
   X, 
-  Calendar, 
-  Clock, 
-  Users, 
-  MapPin, 
-  Sparkles, 
-  Check, 
-  Wine, 
   ChevronRight, 
   ChevronLeft,
   Download,
-  Share2,
-  ShieldCheck
+  ShieldCheck,
+  Phone,
+  Check,
+  Sparkles
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCart } from '@/context/CartContext';
@@ -27,66 +22,64 @@ export const ReservationModal: React.FC = () => {
   const [selectedLoc, setSelectedLoc] = useState(currentLocation.id);
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [timeSlot, setTimeSlot] = useState('19:30');
-  const [guests, setGuests] = useState(2);
-  const [seatingZone, setSeatingZone] = useState<'main-dining' | 'chef-counter' | 'wine-vault' | 'skyline-terrace'>('chef-counter');
-  const [occasion, setOccasion] = useState('Romantic Anniversary');
+  const [guests, setGuests] = useState(4);
+  const [seatingZone, setSeatingZone] = useState<'family-ac' | 'royal-majlis' | 'main-dining' | 'rooftop-breeze'>('family-ac');
+  const [occasion, setOccasion] = useState('Family Dinner & Gathering');
   const [dietaryNotes, setDietaryNotes] = useState('');
-  const [guestName, setGuestName] = useState('Alexander Sterling');
-  const [email, setEmail] = useState('a.sterling@private.com');
-  const [phone, setPhone] = useState('+1 (212) 555-0199');
-  const [winePairingAddon, setWinePairingAddon] = useState(true);
+  const [guestName, setGuestName] = useState('Mohammed Faisal');
+  const [email, setEmail] = useState('faisal@kerala.in');
+  const [phone, setPhone] = useState('+91 98470 12345');
   const [confirmedBookingRef, setConfirmedBookingRef] = useState<string | null>(null);
 
   if (!isReservationOpen) return null;
 
   const timeSlots = [
-    { time: '17:30', status: 'Available' },
-    { time: '18:15', status: '2 Tables Left' },
-    { time: '19:00', status: 'Few Seats' },
-    { time: '19:30', status: 'Prime Time' },
-    { time: '20:15', status: 'Available' },
-    { time: '21:00', status: 'Available' },
-    { time: '21:45', status: 'Late Gastronomie' },
+    { time: '12:30 PM', status: 'Biryani Special' },
+    { time: '01:30 PM', status: 'Available' },
+    { time: '02:30 PM', status: 'Available' },
+    { time: '07:00 PM', status: 'Tandoor Ready' },
+    { time: '08:00 PM', status: 'Peak Family Time' },
+    { time: '09:00 PM', status: 'Available' },
+    { time: '10:15 PM', status: 'Night Dining' },
   ];
 
   const seatingZones = [
     {
-      id: 'chef-counter',
-      name: "Master Chef's Front Row Counter",
-      description: 'Front-row view of Chef Antoine & culinary brigade. Live plating theater.',
-      fee: '$0 (Included in Tasting)',
-      icon: '🔥'
+      id: 'family-ac',
+      name: 'Private AC Family Cabin',
+      description: 'Exclusive air-conditioned private enclosure ideal for family privacy and comfort.',
+      fee: 'Zero Cabin Charge',
+      icon: '❄️'
+    },
+    {
+      id: 'royal-majlis',
+      name: 'Royal Arabic Majlis Seating',
+      description: 'Traditional cushioned carpet floor seating for authentic Mandi and Dastarkhwan experience.',
+      fee: 'Traditional Experience',
+      icon: '🕌'
     },
     {
       id: 'main-dining',
-      name: 'Grand Obsidian Dining Sanctuary',
-      description: 'Lustrous crystal chandeliers, velvet banquet banquettes, and ambient jazz.',
-      fee: 'Standard Experience',
+      name: 'Grand Central Dining Hall',
+      description: 'Spacious banquet-style ambient hall with chandeliers and live tandoor view.',
+      fee: 'Standard Dining',
       icon: '✨'
     },
     {
-      id: 'wine-vault',
-      name: 'Private Subterranean Grand Cru Vault',
-      description: 'Ultra-exclusive private room surrounded by 3,400 rare vintage bottles.',
-      fee: 'VIP Dedicated Sommelier Included',
-      icon: '🍷'
-    },
-    {
-      id: 'skyline-terrace',
-      name: 'Glass-Enclosed Skyline Terrace',
-      description: 'Panoramic skyline city vistas with heated ambient marble fire pits.',
-      fee: 'Subject to Weather & Season',
-      icon: '🌃'
+      id: 'rooftop-breeze',
+      name: 'Rooftop Open Breeze Dining',
+      description: 'Open-air starlit dining area with pleasant evening breeze.',
+      fee: 'Subject to Weather',
+      icon: '🌙'
     }
   ];
 
   const handleCompleteReservation = (e: React.FormEvent) => {
     e.preventDefault();
-    const refCode = 'DLC-' + Math.floor(100000 + Math.random() * 900000);
+    const refCode = 'DLC-KL-' + Math.floor(100000 + Math.random() * 900000);
     setConfirmedBookingRef(refCode);
     setStep(5);
 
-    // Trigger luxury celebration confetti
     try {
       confetti({
         particleCount: 80,
@@ -124,12 +117,12 @@ export const ReservationModal: React.FC = () => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Step Progression Bar (if not finished) */}
+        {/* Step Progression Bar */}
         {step < 5 && (
           <div className="mb-8">
             <div className="flex items-center justify-between text-xs text-cream-300/60 uppercase tracking-widest font-semibold mb-3">
-              <span>Step {step} of 4: {step === 1 ? 'Location' : step === 2 ? 'Date & Time' : step === 3 ? 'Seating Zone' : 'Guest Details'}</span>
-              <span className="text-gold-400 font-serif">Table Reservation Suite</span>
+              <span>Step {step} of 4: {step === 1 ? 'Branch' : step === 2 ? 'Date & Time' : step === 3 ? 'Seating Style' : 'Family Details'}</span>
+              <span className="text-gold-400 font-serif">Table Booking Suite</span>
             </div>
             <div className="w-full h-1.5 bg-obsidian-800 rounded-full overflow-hidden flex">
               <div
@@ -140,19 +133,19 @@ export const ReservationModal: React.FC = () => {
           </div>
         )}
 
-        {/* STEP 1: Location Choice */}
+        {/* STEP 1: Branch Choice */}
         {step === 1 && (
           <div className="space-y-6">
             <div>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cream-50">
-                Select Flagship Destination
+                Select Your Delicia Branch
               </h3>
               <p className="text-xs text-cream-200/70 mt-1">
-                Choose your preferred Delicia culinary sanctuary.
+                Choose between our Malappuram and Valluvambram locations.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {LOCATIONS_DATA.map((loc) => (
                 <button
                   key={loc.id}
@@ -160,26 +153,29 @@ export const ReservationModal: React.FC = () => {
                     setSelectedLoc(loc.id);
                     setCurrentLocation(loc);
                   }}
-                  className={`p-4 rounded-2xl text-left transition-all border flex flex-col justify-between ${
+                  className={`p-5 rounded-2xl text-left transition-all border flex flex-col justify-between ${
                     selectedLoc === loc.id
                       ? 'glass-panel-gold border-gold-400/60 shadow-lg scale-[1.02]'
                       : 'glass-panel border-white/5 hover:border-gold-500/30'
                   }`}
                 >
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     <div className="text-gold-400 text-xs font-serif font-bold">
-                      {'⭐'.repeat(loc.michelinStars)} {loc.michelinStars} Stars
+                      ⭐ 100% Halal Family Dining
                     </div>
                     <div className="font-serif text-lg font-bold text-cream-100">
                       {loc.name}
                     </div>
-                    <div className="text-xs text-cream-200/60 font-light truncate">
+                    <div className="text-xs text-cream-200/70 font-light leading-relaxed">
                       {loc.address}
+                    </div>
+                    <div className="text-xs font-mono font-bold text-gold-300 pt-1">
+                      📞 {loc.phone}, {loc.phoneAlt.slice(-2)}
                     </div>
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-cream-300/70">
-                    <span>Chef {loc.headChef.split(' ')[1]}</span>
+                    <span>AC Cabins & Parking</span>
                     {selectedLoc === loc.id && (
                       <span className="text-gold-400 font-bold">Selected ✓</span>
                     )}
@@ -228,16 +224,16 @@ export const ReservationModal: React.FC = () => {
 
               <div>
                 <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1.5 font-semibold">
-                  Party Size
+                  Number of Guests
                 </label>
                 <select
                   value={guests}
                   onChange={(e) => setGuests(parseInt(e.target.value))}
                   className="w-full px-4 py-3 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 focus:outline-none"
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 10, 12].map((num) => (
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 20].map((num) => (
                     <option key={num} value={num} className="bg-obsidian-950">
-                      {num} {num === 1 ? 'Guest' : 'Guests'} (Dining Seating)
+                      {num} {num === 1 ? 'Guest' : 'Guests (Family Table)'}
                     </option>
                   ))}
                 </select>
@@ -247,7 +243,7 @@ export const ReservationModal: React.FC = () => {
             {/* Time Slots */}
             <div>
               <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-2 font-semibold">
-                Available Evening Time Slots
+                Available Dining Slots
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 {timeSlots.map((slot) => (
@@ -261,7 +257,7 @@ export const ReservationModal: React.FC = () => {
                         : 'bg-obsidian-900 border-white/10 text-cream-100 hover:border-gold-500/30'
                     }`}
                   >
-                    <div className="font-serif text-base font-bold">{slot.time}</div>
+                    <div className="font-serif text-sm sm:text-base font-bold">{slot.time}</div>
                     <div className={`text-[9px] uppercase tracking-wider ${
                       timeSlot === slot.time ? 'text-obsidian-900/80 font-semibold' : 'text-cream-300/50'
                     }`}>
@@ -283,7 +279,7 @@ export const ReservationModal: React.FC = () => {
                 onClick={() => setStep(3)}
                 className="gold-btn px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2"
               >
-                <span>Select Seating Zone</span>
+                <span>Select Seating Style</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -295,10 +291,10 @@ export const ReservationModal: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cream-50">
-                Choose Your Ambiance & Seating
+                Choose Seating Style
               </h3>
               <p className="text-xs text-cream-200/70 mt-1">
-                Customize where you experience Chef Antoine&apos;s creations.
+                Select your preferred family cabin or hall arrangement.
               </p>
             </div>
 
@@ -322,7 +318,7 @@ export const ReservationModal: React.FC = () => {
                       <div className="text-xs text-cream-200/70 font-light">
                         {zone.description}
                       </div>
-                      <div className="text-[10px] text-gold-400/90 font-medium">
+                      <div className="text-[10px] text-gold-400/90 font-semibold">
                         {zone.fee}
                       </div>
                     </div>
@@ -352,7 +348,7 @@ export const ReservationModal: React.FC = () => {
                 onClick={() => setStep(4)}
                 className="gold-btn px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2"
               >
-                <span>Guest Details</span>
+                <span>Family Details</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -364,17 +360,17 @@ export const ReservationModal: React.FC = () => {
           <form onSubmit={handleCompleteReservation} className="space-y-6">
             <div>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cream-50">
-                Patron & Celebration Details
+                Contact & Celebration Details
               </h3>
               <p className="text-xs text-cream-200/70 mt-1">
-                Ensure every nuance of your visit is flawlessly prepared.
+                We will send SMS and WhatsApp booking confirmation.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1">
-                  Primary Guest Full Name
+                <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1 font-semibold">
+                  Full Name / Contact Person
                 </label>
                 <input
                   required
@@ -386,23 +382,8 @@ export const ReservationModal: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1">
-                  Email for Encrypted Confirmation
-                </label>
-                <input
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <div>
-                <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1">
-                  Mobile (For Valet & SMS pass)
+                <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1 font-semibold">
+                  Mobile Number (WhatsApp)
                 </label>
                 <input
                   required
@@ -412,56 +393,52 @@ export const ReservationModal: React.FC = () => {
                   className="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 focus:outline-none"
                 />
               </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1">
+                  Email Address
+                </label>
+                <input
+                  required
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 focus:outline-none"
+                />
+              </div>
 
               <div>
                 <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1">
-                  Occasion Type
+                  Occasion
                 </label>
                 <select
                   value={occasion}
                   onChange={(e) => setOccasion(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 focus:outline-none"
                 >
-                  <option value="Romantic Anniversary">Romantic Anniversary</option>
+                  <option value="Family Dinner & Gathering">Family Dinner & Gathering</option>
                   <option value="Birthday Celebration">Birthday Celebration</option>
-                  <option value="Executive Business Dinner">Executive Business Dinner</option>
-                  <option value="Marriage Proposal">Marriage Proposal</option>
-                  <option value="Casual Fine Dining">Epicurean Exploration</option>
+                  <option value="Anniversary Feast">Anniversary Feast</option>
+                  <option value="Nikah / Engagement Party">Nikah / Engagement Party</option>
+                  <option value="Corporate / Friends Meet">Corporate / Friends Meet</option>
                 </select>
               </div>
             </div>
 
             <div>
               <label className="text-[11px] uppercase tracking-wider text-cream-300/60 block mb-1">
-                Dietary Restrictions / Allergies
+                Special Requests or Dietary Requirements
               </label>
               <input
                 type="text"
                 value={dietaryNotes}
                 onChange={(e) => setDietaryNotes(e.target.value)}
-                placeholder="e.g. Gluten-Free for 1 guest, Shellfish allergy..."
+                placeholder="e.g. Need high chair for toddler, less spicy Biryani for elderly..."
                 className="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-900 border border-white/10 focus:border-gold-400 text-xs text-cream-100 placeholder-cream-300/30 focus:outline-none"
               />
             </div>
-
-            {/* Sommelier Add-on Toggle */}
-            <label className="flex items-center justify-between p-4 rounded-xl bg-burgundy-950/40 border border-gold-500/30 cursor-pointer">
-              <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={winePairingAddon}
-                  onChange={(e) => setWinePairingAddon(e.target.checked)}
-                  className="w-4 h-4 rounded text-gold-500 accent-gold-500"
-                />
-                <div>
-                  <div className="text-xs font-semibold text-cream-100 flex items-center gap-1.5">
-                    <Wine className="w-3.5 h-3.5 text-gold-400" />
-                    Pre-Authorize Sommelier Grand Cru Degustation Pairing
-                  </div>
-                  <div className="text-[11px] text-cream-300/60">Reserve rare bottle selections before arrival</div>
-                </div>
-              </div>
-            </label>
 
             <div className="pt-4 flex items-center justify-between">
               <button
@@ -476,13 +453,13 @@ export const ReservationModal: React.FC = () => {
                 className="gold-btn px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-xl"
               >
                 <Check className="w-4 h-4" />
-                Confirm Guaranteed Table
+                Confirm Table Booking
               </button>
             </div>
           </form>
         )}
 
-        {/* STEP 5: Luxury Confirmation Pass */}
+        {/* STEP 5: Confirmation Pass */}
         {step === 5 && (
           <div className="space-y-6 text-center animate-scale-up">
             <div className="w-16 h-16 rounded-full bg-gold-500/20 border-2 border-gold-400 text-gold-400 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(212,175,55,0.3)]">
@@ -491,17 +468,17 @@ export const ReservationModal: React.FC = () => {
 
             <div className="space-y-2">
               <span className="text-xs uppercase tracking-[0.25em] text-gold-400 font-bold">
-                Reservation Confirmed
+                Table Booking Confirmed
               </span>
               <h3 className="font-serif text-3xl font-bold text-cream-50">
-                We Await Your Arrival, {guestName}
+                We Look Forward to Welcoming You, {guestName}!
               </h3>
               <p className="text-xs text-cream-200/80 max-w-md mx-auto leading-relaxed">
-                Your table at <strong className="text-gold-300">{activeLocInfo.name}</strong> is held exclusively for you.
+                Your family table at <strong className="text-gold-300">{activeLocInfo.name}</strong> is reserved.
               </p>
             </div>
 
-            {/* Encrypted Digital Pass Card */}
+            {/* Pass Card */}
             <div className="p-6 rounded-2xl bg-obsidian-950 border border-gold-500/40 text-left space-y-4 shadow-xl max-w-lg mx-auto">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <div className="flex items-center gap-2">
@@ -509,7 +486,7 @@ export const ReservationModal: React.FC = () => {
                     D
                   </div>
                   <span className="font-serif text-sm font-bold text-cream-100 uppercase tracking-wider">
-                    VIP Table Pass
+                    Delicia Table Pass
                   </span>
                 </div>
                 <div className="font-mono text-xs font-bold text-gold-300">
@@ -518,6 +495,10 @@ export const ReservationModal: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-4 text-xs">
+                <div>
+                  <span className="text-cream-300/50 text-[10px] uppercase tracking-wider block">Branch</span>
+                  <span className="text-cream-100 font-medium">{activeLocInfo.city}</span>
+                </div>
                 <div>
                   <span className="text-cream-300/50 text-[10px] uppercase tracking-wider block">Date & Time</span>
                   <span className="text-cream-100 font-medium">{date} at {timeSlot}</span>
@@ -530,16 +511,12 @@ export const ReservationModal: React.FC = () => {
                   <span className="text-cream-300/50 text-[10px] uppercase tracking-wider block">Occasion</span>
                   <span className="text-gold-300 font-medium">{occasion}</span>
                 </div>
-                <div>
-                  <span className="text-cream-300/50 text-[10px] uppercase tracking-wider block">Valet Check-in</span>
-                  <span className="text-cream-100 font-medium">Included with Pass</span>
-                </div>
               </div>
 
               <div className="pt-3 border-t border-white/10 text-[11px] text-cream-300/60 flex items-center justify-between">
-                <span>Confirmation sent to {email}</span>
+                <span>Confirmation dispatched to {phone}</span>
                 <span className="text-gold-400 font-medium flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Guaranteed Seating
+                  <ShieldCheck className="w-3.5 h-3.5" /> Guaranteed AC Cabin
                 </span>
               </div>
             </div>
@@ -550,16 +527,16 @@ export const ReservationModal: React.FC = () => {
                 onClick={handleClose}
                 className="w-full sm:w-auto gold-btn px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest"
               >
-                Return to Delicia
+                Done
               </button>
 
-              <button
-                onClick={() => alert(`Table confirmation pass ${confirmedBookingRef} saved to Apple Wallet / Calendar.`)}
+              <a
+                href={`tel:${activeLocInfo.phone.replace(/[^0-9+]/g, '')}`}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-obsidian-800 border border-white/10 hover:border-gold-400 text-xs font-semibold uppercase tracking-wider text-cream-100 flex items-center justify-center gap-2 transition-colors"
               >
-                <Download className="w-4 h-4 text-gold-400" />
-                Add to Apple Wallet / Calendar
-              </button>
+                <Phone className="w-4 h-4 text-gold-400" />
+                Call Branch ({activeLocInfo.phone})
+              </a>
             </div>
           </div>
         )}

@@ -1,21 +1,21 @@
 export interface Dish {
   id: string;
   name: string;
-  frenchName?: string;
-  category: 'starters' | 'steaks' | 'seafood' | 'pastas' | 'plant' | 'desserts' | 'wines' | 'cocktails';
+  malayalamName?: string;
+  category: 'starters' | 'biryani' | 'seafood' | 'tandoori' | 'curries' | 'breads' | 'desserts' | 'beverages';
   description: string;
   price: number;
   image: string;
   featured?: boolean;
   chefSpecial?: boolean;
   spicyLevel?: number;
-  dietary: ('Gluten-Free' | 'Vegan' | 'Vegetarian' | 'Halal' | 'Dairy-Free' | 'Nut-Free' | 'Chef Selection')[];
+  dietary: ('100% Halal' | 'Vegetarian' | 'Chef Special' | 'Gluten-Free' | 'Jain Friendly' | 'Kids Friendly')[];
   pairing?: string;
   origin?: string;
   calories?: number;
   prepTime?: string;
   ingredients: string[];
-  course?: 'Amuse-Bouche' | 'Entrée' | 'Main Course' | 'Intermezzo' | 'Dessert' | 'Digestif';
+  course?: 'Starter / Appetizer' | 'Main Dastarkhwan' | 'Bread & Rice' | 'Royal Dessert' | 'Signature Refreshment';
 }
 
 export interface LocationInfo {
@@ -24,22 +24,23 @@ export interface LocationInfo {
   name: string;
   address: string;
   phone: string;
+  phoneAlt: string;
   email: string;
   hours: {
     lunch: string;
     dinner: string;
-    brunch?: string;
+    majlis?: string;
   };
-  michelinStars: number;
+  ratingStars: number;
   image: string;
   coordinates: {
     lat: number;
     lng: number;
   };
-  sommelier: string;
   headChef: string;
   valetAvailable: boolean;
   dressCode: string;
+  features: string[];
 }
 
 export interface Review {
@@ -48,7 +49,7 @@ export interface Review {
   role: string;
   rating: number;
   comment: string;
-  source: 'Michelin Guide' | 'The New York Times' | 'World 50 Best' | 'Forbes Travel' | 'VIP Guest';
+  source: 'Kerala Food Critics' | 'Times Food & Nightlife' | 'Google 4.9★' | 'VIP Family Patron' | 'Malabar Foodies Guild';
   date: string;
   avatar: string;
   dishRecommended: string;
@@ -68,13 +69,13 @@ export interface ReservationFormData {
   date: string;
   timeSlot: string;
   guests: number;
-  seatingZone: 'main-dining' | 'chef-counter' | 'wine-vault' | 'skyline-terrace';
+  seatingZone: 'family-ac' | 'royal-majlis' | 'main-dining' | 'rooftop-breeze';
   occasion?: string;
   dietaryNotes?: string;
   guestName: string;
   email: string;
   phone: string;
-  winePairingAddon: boolean;
+  welcomeDrinkAddon: boolean;
 }
 
 export interface CartItem {

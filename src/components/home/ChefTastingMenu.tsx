@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Wine, Calendar, Check, ChevronRight } from 'lucide-react';
+import { Sparkles, Calendar, ChevronRight, Utensils } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { CHEF_TASTING_MENU } from '@/data/restaurantData';
 
@@ -20,13 +20,13 @@ export const ChefTastingMenu: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-widest font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
-            Seasonal Haute Degustation
+            Royal Family Dastarkhwan
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-light text-cream-50 leading-tight">
-            The Autumn <span className="font-normal italic text-gold-gradient">7-Course</span> Epilogue
+            The Royal <span className="font-normal italic text-gold-gradient">7-Course</span> Dastarkhwan Feast
           </h2>
           <p className="text-sm sm:text-base text-cream-200/75 font-light leading-relaxed">
-            A theatrical culinary odyssey through terrestrial delicacies and deep ocean harvests, crafted live before guests at our exclusive Chef&apos;s Counter.
+            A grand gastronomic journey traversing coastal Malabar sea delicacies, smoky charcoal tandoor platters, and authentic dum-sealed mutton biryani pots.
           </p>
         </div>
 
@@ -89,34 +89,34 @@ export const ChefTastingMenu: React.FC = () => {
 
               <div className="p-5 rounded-2xl bg-obsidian-950/70 border border-white/10 space-y-3">
                 <div className="text-xs text-cream-300/50 uppercase tracking-widest font-semibold">
-                  Culinary Description
+                  Culinary Essence
                 </div>
                 <p className="text-sm text-cream-100 font-light leading-relaxed">
                   {CHEF_TASTING_MENU[activeCourse].description}
                 </p>
               </div>
 
-              {/* Sommelier Pairing Highlight */}
-              <div className="p-5 rounded-2xl bg-burgundy-900/30 border border-gold-500/30 space-y-2">
+              {/* Pairing Highlight */}
+              <div className="p-5 rounded-2xl bg-burgundy-950/40 border border-gold-500/30 space-y-2">
                 <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-gold-400 font-semibold">
-                  <Wine className="w-4 h-4 text-gold-400" />
-                  Sommelier Cellar Grand Cru Pairing
+                  <Utensils className="w-4 h-4 text-gold-400" />
+                  House Special Refreshment Pairing
                 </div>
                 <div className="font-serif text-base sm:text-lg text-cream-100 italic">
-                  {CHEF_TASTING_MENU[activeCourse].winePairing}
+                  {CHEF_TASTING_MENU[activeCourse].pairing}
                 </div>
               </div>
             </div>
 
-            {/* Pricing & Booking Card */}
+            {/* Pricing & Booking Card in INR */}
             <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-2xl sm:text-3xl font-serif font-bold text-gold-gradient">
-                    $295 <span className="text-xs text-cream-300/70 font-sans font-normal">/ Guest</span>
+                    ₹1,250 <span className="text-xs text-cream-300/70 font-sans font-normal">/ Guest (Complete Feast)</span>
                   </div>
                   <div className="text-[11px] text-cream-300/60 font-light">
-                    Optional Grand Cru Wine Pairing: +$185 / guest
+                    Special Kids Menu Available at ₹550
                   </div>
                 </div>
 
@@ -125,13 +125,13 @@ export const ChefTastingMenu: React.FC = () => {
                   className="gold-btn px-6 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-xl"
                 >
                   <Calendar className="w-4 h-4" />
-                  Book Tasting Table
+                  Book Dastarkhwan
                 </button>
               </div>
 
               <div className="flex items-center justify-between text-[11px] text-cream-300/60 pt-2">
-                <span>⚡ Limited to 18 guests per evening</span>
-                <span>✨ 48-Hour advance booking required</span>
+                <span>⚡ Available in Malappuram & Valluvambram</span>
+                <span>✨ Private AC Majlis Seating Available</span>
               </div>
             </div>
           </div>

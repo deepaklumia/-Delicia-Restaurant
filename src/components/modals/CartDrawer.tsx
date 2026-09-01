@@ -20,9 +20,9 @@ import confetti from 'canvas-confetti';
 import { useCart } from '@/context/CartContext';
 
 export const CartDrawer: React.FC = () => {
-  const { cart, removeFromCart, updateQuantity, clearCart, cartTotal, isCartOpen, setIsCartOpen } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart, cartTotal, isCartOpen, setIsCartOpen, currentLocation } = useCart();
 
-  const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('delivery');
+  const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('pickup');
   const [giftBox, setGiftBox] = useState(false);
   const [promoCode, setPromoCode] = useState('');
   const [discountApplied, setDiscountApplied] = useState(false);
@@ -31,18 +31,18 @@ export const CartDrawer: React.FC = () => {
 
   if (!isCartOpen) return null;
 
-  const giftBoxFee = giftBox ? 15 : 0;
-  const deliveryFee = orderType === 'delivery' ? 18 : 0;
-  const discountAmount = discountApplied ? cartTotal * 0.15 : 0;
+  const giftBoxFee = giftBox ? 60 : 0;
+  const deliveryFee = orderType === 'delivery' ? 40 : 0;
+  const discountAmount = discountApplied ? cartTotal * 0.10 : 0;
   const subtotalAfterDiscount = Math.max(0, cartTotal - discountAmount);
   const finalTotal = subtotalAfterDiscount + giftBoxFee + deliveryFee;
 
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault();
-    if (promoCode.trim().toUpperCase() === 'DELICIAVIP' || promoCode.trim().toUpperCase() === 'MICHELIN') {
+    if (promoCode.trim().toUpperCase() === 'DELICIA10' || promoCode.trim().toUpperCase() === 'MALABAR' || promoCode.trim().toUpperCase() === 'DELICIAVIP') {
       setDiscountApplied(true);
     } else {
-      alert('Invalid code. Try "DELICIAVIP" for 15% tasting privilege.');
+      alert('Invalid coupon. Try "DELICIA10" for 10% discount.');
     }
   };
 
@@ -86,10 +86,10 @@ export const CartDrawer: React.FC = () => {
             </div>
             <div>
               <h3 className="font-serif text-xl font-bold text-cream-50">
-                Gourmet Dining Order
+                Food Order Cart
               </h3>
               <p className="text-[11px] text-cream-300/60 font-light">
-                Haute cuisine prepared fresh upon order
+                {currentLocation.city} Branch ({currentLocation.phone})
               </p>
             </div>
           </div>
@@ -110,10 +110,10 @@ export const CartDrawer: React.FC = () => {
                 <Check className="w-8 h-8" />
               </div>
               <h4 className="font-serif text-2xl font-bold text-cream-50">
-                Order Dispatched to Brigade
+                Order Placed Successfully!
               </h4>
               <p className="text-xs text-cream-200/80 max-w-sm mx-auto leading-relaxed">
-                Chef Antoine and his team have received your order. White-glove temperature-controlled transport is scheduled.
+                The {currentLocation.city} kitchen team is preparing your piping hot food. Our team will contact you on WhatsApp.
               </p>
               <div className="pt-4">
                 <button
@@ -127,9 +127,9 @@ export const CartDrawer: React.FC = () => {
           ) : cart.length === 0 ? (
             <div className="py-20 text-center space-y-3">
               <ShoppingBag className="w-12 h-12 text-gold-400/40 mx-auto" />
-              <h4 className="font-serif text-xl text-cream-100">Your Gourmet Bag is Empty</h4>
+              <h4 className="font-serif text-xl text-cream-100">Your Food Bag is Empty</h4>
               <p className="text-xs text-cream-300/60 max-w-xs mx-auto">
-                Explore our Signature Masterpieces or Digital Menu to select your creations.
+                Explore our Biryanis, Tandoori Platters, and Seafood to add your favorite items.
               </p>
               <button
                 onClick={() => {
@@ -146,16 +146,6 @@ export const CartDrawer: React.FC = () => {
               {/* Order Mode Toggle */}
               <div className="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-obsidian-900 border border-white/10">
                 <button
-                  onClick={() => setOrderType('delivery')}
-                  className={`py-2 rounded-xl text-xs font-semibold tracking-wider transition-all ${
-                    orderType === 'delivery'
-                      ? 'bg-gold-500 text-obsidian-950 shadow-md font-bold'
-                      : 'text-cream-200 hover:text-white'
-                  }`}
-                >
-                  Chauffeured Delivery ($18)
-                </button>
-                <button
                   onClick={() => setOrderType('pickup')}
                   className={`py-2 rounded-xl text-xs font-semibold tracking-wider transition-all ${
                     orderType === 'pickup'
@@ -163,7 +153,17 @@ export const CartDrawer: React.FC = () => {
                       : 'text-cream-200 hover:text-white'
                   }`}
                 >
-                  Restaurant Curbside (Free)
+                  Branch Takeaway (Free)
+                </button>
+                <button
+                  onClick={() => setOrderType('delivery')}
+                  className={`py-2 rounded-xl text-xs font-semibold tracking-wider transition-all ${
+                    orderType === 'delivery'
+                      ? 'bg-gold-500 text-obsidian-950 shadow-md font-bold'
+                      : 'text-cream-200 hover:text-white'
+                  }`}
+                >
+                  Home Delivery (+₹40)
                 </button>
               </div>
 
@@ -188,7 +188,7 @@ export const CartDrawer: React.FC = () => {
                         {item.dish.name}
                       </h5>
                       <div className="font-serif text-xs font-semibold text-gold-300">
-                        ${item.dish.price} each
+                        ₹{item.dish.price} each
                       </div>
                     </div>
 
@@ -226,7 +226,7 @@ export const CartDrawer: React.FC = () => {
                 ))}
               </div>
 
-              {/* Luxury Gift Packaging Option */}
+              {/* Thermal Box Packaging Option */}
               <label className="flex items-center justify-between p-4 rounded-xl bg-obsidian-900/80 border border-gold-500/30 cursor-pointer">
                 <div className="flex items-center gap-3">
                   <input
@@ -238,12 +238,12 @@ export const CartDrawer: React.FC = () => {
                   <div>
                     <div className="text-xs font-semibold text-cream-100 flex items-center gap-1">
                       <Gift className="w-3.5 h-3.5 text-gold-400" />
-                      Delicia Gold Foil Velvet Presentation Box
+                      Thermal Hot Seal Box Packaging
                     </div>
-                    <div className="text-[10px] text-cream-300/60">Includes gold ribbon and personalized wax-sealed note</div>
+                    <div className="text-[10px] text-cream-300/60">Keeps Biryani & Tandoor piping hot for over 2 hours</div>
                   </div>
                 </div>
-                <span className="text-xs font-serif text-gold-300 font-bold">+$15</span>
+                <span className="text-xs font-serif text-gold-300 font-bold">+₹60</span>
               </label>
 
               {/* Promo Code Input */}
@@ -254,7 +254,7 @@ export const CartDrawer: React.FC = () => {
                     type="text"
                     value={promoCode}
                     onChange={(e) => setPromoCode(e.target.value)}
-                    placeholder="VIP Tasting Code (e.g. DELICIAVIP)..."
+                    placeholder="Coupon code (e.g. DELICIA10)..."
                     className="w-full pl-9 pr-3 py-2 rounded-xl bg-obsidian-900 border border-white/10 text-xs text-cream-100 placeholder-cream-300/40 focus:outline-none focus:border-gold-400 uppercase font-mono"
                   />
                 </div>
@@ -268,7 +268,7 @@ export const CartDrawer: React.FC = () => {
 
               {discountApplied && (
                 <div className="text-xs text-emerald-400 flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5" /> 15% VIP Patron Privilege Applied (-${discountAmount.toFixed(2)})
+                  <Check className="w-3.5 h-3.5" /> 10% Discount Applied (-₹{discountAmount.toFixed(0)})
                 </div>
               )}
             </>
@@ -280,30 +280,30 @@ export const CartDrawer: React.FC = () => {
           <div className="p-6 border-t border-white/10 bg-obsidian-900/90 backdrop-blur-xl space-y-4">
             <div className="space-y-1.5 text-xs text-cream-200/80">
               <div className="flex justify-between">
-                <span>Dishes Subtotal</span>
-                <span className="font-serif text-cream-100">${cartTotal.toFixed(2)}</span>
+                <span>Items Subtotal</span>
+                <span className="font-serif text-cream-100">₹{cartTotal.toFixed(0)}</span>
               </div>
               {discountApplied && (
                 <div className="flex justify-between text-emerald-400">
-                  <span>VIP Privilege (15%)</span>
-                  <span>-${discountAmount.toFixed(2)}</span>
+                  <span>Special Discount (10%)</span>
+                  <span>-₹{discountAmount.toFixed(0)}</span>
                 </div>
               )}
               {giftBox && (
                 <div className="flex justify-between">
-                  <span>Gold Velvet Presentation Box</span>
-                  <span className="font-serif text-cream-100">$15.00</span>
+                  <span>Thermal Hot Seal Box</span>
+                  <span className="font-serif text-cream-100">₹60</span>
                 </div>
               )}
               {orderType === 'delivery' && (
                 <div className="flex justify-between">
-                  <span>Chauffeured Temperature Delivery</span>
-                  <span className="font-serif text-cream-100">$18.00</span>
+                  <span>Delivery Charge</span>
+                  <span className="font-serif text-cream-100">₹40</span>
                 </div>
               )}
               <div className="flex justify-between text-sm font-bold text-cream-50 pt-2 border-t border-white/10">
-                <span className="font-serif text-base">Estimated Total</span>
-                <span className="font-serif text-xl text-gold-gradient">${finalTotal.toFixed(2)}</span>
+                <span className="font-serif text-base">Grand Total</span>
+                <span className="font-serif text-xl text-gold-gradient">₹{finalTotal.toFixed(0)}</span>
               </div>
             </div>
 
@@ -315,22 +315,22 @@ export const CartDrawer: React.FC = () => {
               {isCheckingOut ? (
                 <>
                   <Sparkles className="w-4 h-4 animate-spin" />
-                  Transmitting Order...
+                  Sending Order to {currentLocation.city}...
                 </>
               ) : (
                 <>
                   <CreditCard className="w-4 h-4" />
-                  Authorize Gourmet Checkout (${finalTotal.toFixed(2)})
+                  Confirm Order (₹{finalTotal.toFixed(0)})
                 </>
               )}
             </button>
 
             <div className="flex items-center justify-center gap-4 text-[10px] text-cream-300/50">
               <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-gold-400" /> 256-Bit Encrypted
+                <ShieldCheck className="w-3 h-3 text-gold-400" /> 100% Halal Certified
               </span>
               <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3 text-gold-400" /> Prepared Upon Order
+                <Clock className="w-3 h-3 text-gold-400" /> Freshly Prepared
               </span>
             </div>
           </div>
