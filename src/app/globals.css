@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --background: #09090C;
+  --foreground: #F7F4EB;
+  --gold-primary: #D4AF37;
+  --gold-glow: rgba(212, 175, 55, 0.25);
+  --glass-bg: rgba(18, 18, 24, 0.65);
+  --glass-border: rgba(212, 175, 55, 0.15);
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-montserrat: 'Montserrat', system-ui, sans-serif;
+  --font-cinzel: 'Cinzel', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #D4AF37;
+  color: #09090C;
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #272732;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(18, 18, 24, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.glass-panel-gold {
+  background: linear-gradient(135deg, rgba(26, 23, 16, 0.8) 0%, rgba(14, 14, 18, 0.85) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.7), 0 0 20px 0 rgba(212, 175, 55, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px -2px rgba(212, 175, 55, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Gold Gradient Text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF1C5 0%, #D4AF37 50%, #AA820A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-silver-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 50%, #9CA3AF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Luxury border glow */
+.gold-border-glow {
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+/* Gold button hover shimmer */
+.gold-btn {
+  position: relative;
+  background: linear-gradient(135deg, #E6C466 0%, #D4AF37 50%, #B58C18 100%);
+  color: #070709;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+
+.gold-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 80%
+  );
+  transform: rotate(30deg) translateX(-100%);
+  transition: transform 0.75s ease-out;
+}
+
+.gold-btn:hover::after {
+  transform: rotate(30deg) translateX(100%);
+}
+
+.gold-btn:hover {
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Noise overlay */
+.bg-grain {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
